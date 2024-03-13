@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project 1</title>
+
+   <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+  <h1 class="centre">Magic 8 ball</h1>
+  <div class="centre">
+    <span class="largeball ball" id="eightball"><span class="smallball ball"><p class="message" id="message">Click to start</p></span></span>
+  </div>
+  <div class="centre">
+    <form id ="additem">
+                <input name="newitem" id = "newitem" type="text"
+             maxlength="100" placeholder="Add to 8 ball"  required>
+                <button type="submit" id="submit-item" class = "ui button">
+              Add</button>
+    </form>
+  </div>
+
+</body>
+<script type="text/javascript">
+const eightball = document.querySelector("#eightball")
+const message = document.querySelector("#message");
+let responses = ["Yes", "No", "I wouldn't", "Maybe", "Possibly", "Under a full moon", "Please ask again", "100%", "I legally cannot say yes but if i could...", "Dear god no", "Never ask that again"]
+//
+const inputForm = document.querySelector("#additem")  //form
+const itemInput = inputForm.elements.newitem  //form text box element
+
+eightball.addEventListener("click", (evt) => {
+  message.textContent = responses[Math.floor(Math.random()*(responses.length))]
+})
+
+inputForm.addEventListener("submit", (evt) => {
+  evt.preventDefault()
+  let input = itemInput.value
+  let input1 = input.charAt(0)
+  let input2 = input.substring(1)
+  input = input1.toUpperCase() + input2.toLowerCase()
+  responses.push(input)
+
+  // reset form
+  itemInput.value = ""
+  itemInput.focus()
+})
+
+</script>
+</html>
