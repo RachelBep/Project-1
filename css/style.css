@@ -1,3 +1,6 @@
+body {
+  background-color: LightGrey;
+}
 .ball {
   border-radius: 50%;
   display: inline-block;
@@ -38,4 +41,18 @@ form {
 
 .reverse {
   transform: rotate(180deg);
+}
+
+.nav a {
+  padding-top: .7em;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  font-size: 1.3em;
+
+}
+.textCentre {
+  text-align: center;
+}
+.hidden {
+  display: none;
 }

@@ -9,55 +9,86 @@
 
 </head>
 <body>
-  <h1 class="centre">Tarot Spread</h1>
-  <div class="centre">
-    <img src="images/Waite–Smith_Tarot_Roses_and_Lilies_cropped.jpg" alt="Tarot Deck" height="350px" id="deck">
-  </div>
-  <div class="centre">
-    <p>Click for a Reading</p>
-  </div>
-  <div class="centre" id="spread">
-    <img src="images/1.jpg" alt="1" height="1px">
-  </div>
+  <nav>
+    <div class="centre nav">
+      <a href="index.html">Magic 8 ball</a>
+      <a href="tarotSpread.html">Tarot cards</a>
+    </div>
+  </nav>
+  <header>
+    <h1 class="centre">Tarot Spread</h1>
+  </header>
+  <main>
+    <div class="centre">
+      <img src="images/Waite–Smith_Tarot_Roses_and_Lilies_cropped.jpg" alt="Tarot Deck" height="350px" id="deck">
+    </div>
+    <div class="centre">
+      <p>Click for a Reading</p>
+    </div>
+    <div class="centre" id="spread">
+      <img src="images/1.jpg" alt="1" height="1px">
+    </div>
+    <p class="hidden centre" id="moreInfo">Click the cards for more info</p>
+  </main>
+
+
 
 
 <script>
-const deck = document.querySelector("#deck")
+const deck = document.querySelector("#deck");
 const spread = document.querySelector("#spread");
-let random = Math.random()
-let cardList = []
+const info = document.querySelector('#moreInfo')
+let random = Math.random();
+let cardList = [];
+const era = ["Your Past", "Your Present", "Your Future"]
+const baseMeaning = ["https://www.thetarotguide.com/the-fool/", "https://www.thetarotguide.com/the-magician/", "https://www.thetarotguide.com/the-high-priestess", "https://www.thetarotguide.com/the-empress", "https://www.thetarotguide.com/the-empress", "https://www.thetarotguide.com/the-hierophant", "https://www.thetarotguide.com/the-lovers", "https://www.thetarotguide.com/the-chariot", "https://www.thetarotguide.com/strength", "https://www.thetarotguide.com/the-hermit", "https://www.thetarotguide.com/wheel-of-fortune", "https://www.thetarotguide.com/justice", "https://www.thetarotguide.com/the-hanged-man", "https://www.thetarotguide.com/death", "https://www.thetarotguide.com/temperance", "https://www.thetarotguide.com/the-devil", "https://www.thetarotguide.com/the-tower", "https://www.thetarotguide.com/the-star", "https://www.thetarotguide.com/the-moon", "https://www.thetarotguide.com/the-sun", "https://www.thetarotguide.com/judgement", "https://www.thetarotguide.com/the-world" ]
+let meaning = []
 
 let reshuffle = () => {
   // removes previous cards
   cardList = []
+  meaning = []
 
-  for (var i = 0; i < 22; i++) {
+  baseMeaning.forEach((mean, i, array) => {
     cardList.push("images/"+ i + ".jpg")
-  }
-  random =  Math.random()
-  cardList.sort(function(){return 0.5 -}); //found on w3 schools
-  console.log(cardList);
+    meaning.push(mean)
+  })
+  random =  Math.random();
+  cardList.sort(function(){return 0.5 - random}); //found on w3 schools
+  meaning.sort(function(){return 0.5 - random});
 }
 
 let clear = () => {
-spread.innerHTML = ''
-}
+spread.innerHTML = '';
+};
 
 let spreadOut = () => {
   for (var i = 0; i < 3; i++) {
-    let card = document.createElement('img')
-    card.src = cardList[i]
-    card.classList.add('card')
-    card.height = "350"
-    console.log(Math.floor(Math.random()*2) % 2);
-    if (Math.floor(Math.random()*2) % 2 == 1) {
-      card.classList.add('reverse')
+    let fig = document.createElement('figure');
+    let link = document.createElement('a')
+    link.href = meaning[i]
+    link.target = "_blank"
+    fig.classList.add('textCentre')
+    let card = document.createElement('img');
+    card.src = cardList[i];
+    card.classList.add('card');
+    card.height = "350";
+    let caption = document.createElement('figcaption');
+    caption.textContent = era[i];
+    if (Math.floor(Math.random()*2) % 2 === 1) {
+      card.classList.add('reverse');
     }
-    spread.append(card)
+
+    link.appendChild(card)
+    link.appendChild(caption)
+    fig.appendChild(link)
+
+    spread.append(fig);
   }
 
 }
 deck.addEventListener("click", (evt) => {
+  info.classList.remove('hidden')
   reshuffle()
   clear()
   spreadOut()

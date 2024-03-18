@@ -9,18 +9,30 @@
 
 </head>
 <body>
-  <h1 class="centre">Magic 8 ball</h1>
   <div class="centre">
-    <span class="largeball ball" id="eightball"><span class="smallball ball"><p class="message" id="message">Click to start</p></span></span>
+    <div class="distant nav">
+      <a href="index.html">Magic 8 ball</a>
+      <a href="tarotSpread.html">Tarot cards</a>
+    </div>
   </div>
-  <div class="centre">
-    <form id ="additem">
-                <input name="newitem" id = "newitem" type="text"
-             maxlength="100" placeholder="Add to 8 ball"  required>
-                <button type="submit" id="submit-item" class = "ui button">
-              Add</button>
-    </form>
-  </div>
+
+  <header>
+    <h1 class="centre">Magic 8 ball</h1>
+  </header>
+  <main>
+    <div class="centre">
+      <span class="largeball ball" id="eightball"><span class="smallball ball"><p class="message" id="message">Click to start</p></span></span>
+    </div>
+    <div class="centre">
+      <form id ="additem">
+                  <input name="newitem" id = "newitem" type="text"
+               maxlength="100" placeholder="Add to 8 ball"  required>
+                  <button type="submit" id="submit-item" class = "ui button">
+                Add</button>
+      </form>
+    </div>
+  </main>
+
 
 </body>
 <script type="text/javascript">
