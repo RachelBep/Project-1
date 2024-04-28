@@ -5,16 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project 1</title>
 
+<link rel="stylesheet" href="css/lightgallery-bundle.min.css">
+
    <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
+  <script id="layout" type="text/x-handlebars-template">
+
+    <ul>
+    {{#each links}}
+      <li><a href="{{link}}">{{title}}</a></li>
+    {{/each}}
+    </ul>
+  </script>
   <nav>
-    <div class="centre nav">
-      <a href="index.html">Magic 8 ball</a>
-      <a href="tarotSpread.html">Tarot cards</a>
+    <div class="nav">
     </div>
   </nav>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
+  <script src = "js/nav.js"></script>
   <header>
     <h1 class="centre">Tarot Spread</h1>
   </header>
@@ -33,7 +43,10 @@
 
 
 
-
+  <script src="js/lightgallery.min.js"></script>
+  <script src="js/lg-thumbnail.min.js"></script>
+  <script src="js/lg-zoom.min.js"></script>
+  <script src="js/lg-fullscreen.min.js"></script>
 <script>
 const deck = document.querySelector("#deck");
 const spread = document.querySelector("#spread");
@@ -43,6 +56,7 @@ let cardList = [];
 const era = ["Your Past", "Your Present", "Your Future"]
 const baseMeaning = ["https://www.thetarotguide.com/the-fool/", "https://www.thetarotguide.com/the-magician/", "https://www.thetarotguide.com/the-high-priestess", "https://www.thetarotguide.com/the-empress", "https://www.thetarotguide.com/the-empress", "https://www.thetarotguide.com/the-hierophant", "https://www.thetarotguide.com/the-lovers", "https://www.thetarotguide.com/the-chariot", "https://www.thetarotguide.com/strength", "https://www.thetarotguide.com/the-hermit", "https://www.thetarotguide.com/wheel-of-fortune", "https://www.thetarotguide.com/justice", "https://www.thetarotguide.com/the-hanged-man", "https://www.thetarotguide.com/death", "https://www.thetarotguide.com/temperance", "https://www.thetarotguide.com/the-devil", "https://www.thetarotguide.com/the-tower", "https://www.thetarotguide.com/the-star", "https://www.thetarotguide.com/the-moon", "https://www.thetarotguide.com/the-sun", "https://www.thetarotguide.com/judgement", "https://www.thetarotguide.com/the-world" ]
 let meaning = []
+
 
 let reshuffle = () => {
   // removes previous cards
@@ -66,11 +80,13 @@ let spreadOut = () => {
   for (var i = 0; i < 3; i++) {
     let fig = document.createElement('figure');
     let link = document.createElement('a')
+    let galLink = document.createElement('a')
     link.href = meaning[i]
     link.target = "_blank"
     fig.classList.add('textCentre')
     let card = document.createElement('img');
     card.src = cardList[i];
+    galLink.href = cardList[i];
     card.classList.add('card');
     card.height = "350";
     let caption = document.createElement('figcaption');
@@ -78,17 +94,28 @@ let spreadOut = () => {
     if (Math.floor(Math.random()*2) % 2 === 1) {
       card.classList.add('reverse');
     }
-
-    link.appendChild(card)
     link.appendChild(caption)
+    fig.appendChild(card)
+
     fig.appendChild(link)
+    galLink.appendChild(fig)
+    spread.append(galLink);
 
-    spread.append(fig);
   }
-
+  lightGallery(spread, {
+      plugins: [lgZoom, lgThumbnail, lgFullscreen],
+      thumbWidth: 80,
+      controls: true,
+      getCaptionFromTitleOrAlt: true,
+      loop : true,
+      actualSize: false,
+      counter: true,
+      fullScreen: true,
+      zoom: true,
+      mode: 'lg-fade'
+  });
 }
 deck.addEventListener("click", (evt) => {
-  info.classList.remove('hidden')
   reshuffle()
   clear()
   spreadOut()

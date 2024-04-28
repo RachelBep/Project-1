@@ -8,57 +8,65 @@
    <link rel="stylesheet" href="css/style.css">
 
 </head>
-<body>
-  <div class="centre">
-    <div class="distant nav">
-      <a href="index.html">Magic 8 ball</a>
-      <a href="tarotSpread.html">Tarot cards</a>
-    </div>
-  </div>
+<style media="screen">
+#spiiin {
+  animation: anim 5s infinite linear;
+}
+@keyframes anim {
+  0% {
+    transform: translateX(0) scale(100%) scaleX(0%);
+ }
+ 12.5% {
+   transform: translateX(25em) scale(85%) scaleX(100%);
+ }
+ 25% {
+   transform: translateX(50em) scale(70%) scaleX(0%);
+}
+37.5% {
+  transform: translateX(75em) scale(85%) scaleX(100%);
+}
+ 50% {
+   transform: translateX(100em) scale(100%) scaleX(0%);
+}
+62.5% {
+  transform: translateX(75em) scale(115%) scaleX(100%);
+}
+75% {
+  transform: translateX(50em) scale(130%) scaleX(0%);
+}
+87.5% {
+  transform: translateX(25em) scale(115%) scaleX(100%);
+}
 
-  <header>
-    <h1 class="centre">Magic 8 ball</h1>
-  </header>
+100% {
+  transform: translateX(0) scale(100%) scaleX(0%);
+}
+
+}
+
+</style>
+<body>
+  <script id="layout" type="text/x-handlebars-template">
+
+    <ul>
+    {{#each links}}
+      <li><a href="{{link}}">{{title}}</a></li>
+    {{/each}}
+    </ul>
+  </script>
+  <nav>
+    <div class="nav">
+    </div>
+  </nav>
   <main>
-    <div class="centre">
-      <span class="largeball ball" id="eightball"><span class="smallball ball"><p class="message" id="message">Click to start</p></span></span>
-    </div>
-    <div class="centre">
-      <form id ="additem">
-                  <input name="newitem" id = "newitem" type="text"
-               maxlength="100" placeholder="Add to 8 ball"  required>
-                  <button type="submit" id="submit-item" class = "ui button">
-                Add</button>
-      </form>
-    </div>
+    <br>
+    <br>
+    <br>
+      <img src="images\Waite–Smith_Tarot_Roses_and_Lilies_cropped.jpg" alt="" id="spiiin" height="480em">
   </main>
 
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
+  <script src = "js/nav.js"></script>
 </body>
-<script type="text/javascript">
-const eightball = document.querySelector("#eightball")
-const message = document.querySelector("#message");
-let responses = ["Yes", "No", "I wouldn't", "Maybe", "Possibly", "Under a full moon", "Please ask again", "100%", "I legally cannot say yes but if i could...", "Dear god no", "Never ask that again"]
-//
-const inputForm = document.querySelector("#additem")  //form
-const itemInput = inputForm.elements.newitem  //form text box element
 
-eightball.addEventListener("click", (evt) => {
-  message.textContent = responses[Math.floor(Math.random()*(responses.length))]
-})
-
-inputForm.addEventListener("submit", (evt) => {
-  evt.preventDefault()
-  let input = itemInput.value
-  let input1 = input.charAt(0)
-  let input2 = input.substring(1)
-  input = input1.toUpperCase() + input2.toLowerCase()
-  responses.push(input)
-
-  // reset form
-  itemInput.value = ""
-  itemInput.focus()
-})
-
-</script>
 </html>
